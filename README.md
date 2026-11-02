@@ -1,90 +1,82 @@
 # Python Banking System
 
-A console-based banking application built using **Python and OOP concepts**.
+A console-based banking application built with Python and object-oriented design. It supports Savings and Current accounts with different business rules, and it separates data models from business logic.
 
 ## Features
 
-- Create Savings and Current Accounts
-- Deposit and withdraw money
-- Check account balance
-- Transfer money between accounts
-- View account details
+- Create Savings and Current accounts
+- Deposit, withdraw, and transfer money between accounts
+- Check balance and view account details
 - View transaction history
 - Apply monthly interest and charges
 - Manage customer information
 
+## Demo
+
+```text
+[Paste real output from your app here: the main menu, a deposit, a transfer, and a transaction history]
+```
+
 ## Tech Stack
 
-- Python 3
-- Object-Oriented Programming
-- Python standard libraries
+- Python 3 (standard library only, no external dependencies)
+- Object-oriented programming
 
-## OOP Concepts
+## Design Decisions
 
-1. **Abstraction:** Uses an abstract `Account` class.
-2. **Inheritance:** `SavingsAccount` and `CurrentAccount` inherit from `Account`.
-3. **Encapsulation:** Uses private attributes and getter methods.
-4. **Polymorphism:** Different account types implement withdrawal and monthly charges differently.
+- **Abstract `Account` base class:** defines the common interface (deposit, withdraw, balance) so each account type must implement its own rules.
+- **Inheritance and polymorphism:** `SavingsAccount` and `CurrentAccount` override withdrawal and monthly-charge behavior instead of using `if/else` on account type.
+- **Encapsulation:** balances are private and accessed through getters, so rules like minimum balance can't be bypassed.
+- **Model / service separation:** `model/` holds the data classes and `service/` holds the banking logic, which keeps each part easy to test and replace (for example, swapping in a database later).
+- [Add one or two decisions that are specific to your code, such as how transfers or transaction IDs work.]
 
 ## Project Structure
 
 ```text
-Banking-System/
-│
-├── banking_app.py
+banking-project/
+├── banking_app.py          # Menu-driven entry point
 ├── model/
-│   ├── account.py
+│   ├── account.py          # Abstract base class
 │   ├── savings_account.py
 │   ├── current_account.py
 │   ├── customer.py
 │   └── transaction.py
-│
 ├── service/
-│   └── banking_system.py
-│
+│   └── banking_system.py   # Business logic
 └── README.md
 ```
 
 ## How to Run
 
-**1. Clone the repository**
-
 ```bash
 git clone https://github.com/Nikhil-raj33/banking-project.git
-```
-
-**2. Open the project folder**
-
-```bash
-cd Banking-System
-```
-
-**3. Run the application**
-
-```bash
+cd banking-project
 python banking_app.py
 ```
 
-## Account Types
+Requires Python 3.[your version] or newer.
 
-| Savings Account | Current Account |
-|---|---|
-| Minimum balance: ₹1,000 | Minimum balance: ₹5,000 |
-| Interest: 4.5% p.a. | Overdraft: ₹50,000 |
-| 5 free withdrawals/month | Monthly fee: ₹100 |
-| Withdrawal limit: ₹50,000 | No withdrawal limit |
+## Account Rules
+
+| | Savings Account | Current Account |
+|---|---|---|
+| Minimum balance | ₹1,000 | ₹5,000 |
+| Interest | 4.5% p.a. | None |
+| Free withdrawals | 5 per month | Unlimited |
+| Withdrawal limit | ₹50,000 | None |
+| Overdraft | None | ₹50,000 |
+| Monthly fee | None | ₹100 |
 
 ## Limitations
 
-- Data is stored in memory.
-- Data is lost when the application closes.
-- No database or real banking integration.
+- Data is stored in memory and is lost when the app closes.
+- No database, authentication, or real banking integration.
 
-## Learning Outcomes
+## Roadmap
 
-- Understanding Python OOP
-- Working with classes and objects
-- Implementing inheritance and polymorphism
-- Building a menu-driven application
-- Managing transactions using Python
-
+- [ ] Add unit tests with pytest
+- [ ] Persist data in PostgreSQL
+- [ ] Expose a REST API with FastAPI and JWT authentication
+- [ ] Add atomic transfers, idempotency keys, and an audit log
+- [ ] Containerize with Docker
+- [ ] Deploy on AWS (VPC, ALB, RDS) with Terraform and GitHub Actions CI/CD
