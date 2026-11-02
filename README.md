@@ -50,7 +50,7 @@ Banking-System/
 **1. Clone the repository**
 
 ```bash
-git clone https://github.com/star-roy/Banking-System.git
+git clone https://github.com/Nikhil-raj33/banking-project.git
 ```
 
 **2. Open the project folder**
